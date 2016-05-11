@@ -14,7 +14,7 @@ fi
 
 
 
-memoryBase=`cat /proc/meminfo | grep MemTotal | awk "{print $2 / 1024 /4}" | cut -f1 -d"."`
+memoryBase=`cat /proc/meminfo | grep MemTotal | awk '{print $2 / 1024 /4}' | cut -f1 -d"."`
 echo $memoryBase
 
 if [[ "$memoryBase" -lt "1024" ]]; then
