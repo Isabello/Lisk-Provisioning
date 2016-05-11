@@ -26,7 +26,7 @@ fi
       echo "√ NTP is running"
    else
       echo "X NTP is not running"
-      read -r -n 1 -p "Would like to install ntp? (y/n): " $REPLY
+      read -r -n 1 -p "Would like to install NTP? (y/n): " $REPLY
       if [[  $REPLY =~ ^[Yy]$ ]]
       then
         sudo apt-get update
@@ -49,13 +49,13 @@ fi
         echo "√ Chrony is running"
       else
         echo "X NTP and Chrony are not running"
-        read -r -n 1 -p "Would like to install ntp? (y/n): " $REPLY
+        read -r -n 1 -p "Would like to install NTP? (y/n): " $REPLY
         if [[  $REPLY =~ ^[Yy]$ ]]
         then
-      yum install ntp ntpdate ntp-doc
-      chkconfig ntpd on
-      ntpdate pool.ntp.org
-      /etc/init.d/ntpd start
+      sudo yum install ntp ntpdate ntp-doc
+      sudo chkconfig ntpd on
+      sudo ntpdate pool.ntp.org
+      sudo  /etc/init.d/ntpd start
       else
       echo -e "\nLisk requires NTP or Chrony on RHEL based systems, exiting."
       exit 0
