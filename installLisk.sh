@@ -23,9 +23,9 @@ fi
  if [[ -f "/etc/debian_version" &&  ! -f "/proc/user_beancounters" ]]; then
    if pgrep -x "ntpd" > /dev/null
    then
-      echo "√ ntp is running"
+      echo "√ NTP is running"
    else
-      echo "X ntp is not running"
+      echo "X NTP is not running"
       read -r -n 1 -p "Would like to install ntp? (y/n): " $REPLY
       if [[  $REPLY =~ ^[Yy]$ ]]
       then
@@ -34,18 +34,21 @@ fi
         sudo service ntp stop
         sudo ntpdate pool.ntp.org
         sudo service ntp start
+      else
+      echo "Lisk requires NTP on Debian based systems, exiting."
+      exit 0
       fi
    fi
  elif [[ -f "/etc/redhat-release" &&  ! -f "/proc/user_beancounters" ]]; then
    if pgrep -x "ntpd" > /dev/null
    then
-      echo "√ ntp is running"
+      echo "√ NTP is running"
    else
       if pgrep -x "chronyd" > /dev/null
       then
-        echo "√ chrony is running"
+        echo "√ Chrony is running"
       else
-        echo "X ntp and chrony are not running"
+        echo "X NTP and Chrony are not running"
         read -r -n 1 -p "Would like to install ntp? (y/n): " $REPLY
         if [[  $REPLY =~ ^[Yy]$ ]]
         then
@@ -53,11 +56,14 @@ fi
       chkconfig ntpd on
       ntpdate pool.ntp.org
       /etc/init.d/ntpd start
+      else
+      echo "Lisk requires NTP or Chrony on RHEL based systems, exiting."
+      exit 0
         fi
       fi
    fi
  elif [[ -f "/proc/user_beancounters" ]]; then
-   echo "_ Running OpenVZ VM"
+   echo "_ Running OpenVZ VM, NTP and Chrony are not required"
  fi
 
 
