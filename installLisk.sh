@@ -19,7 +19,7 @@ if [ "$USER" == "root" ]; then
   exit 1
 fi
 
-#Install NTP or Chrony for Time Management - Physical Machines only
+#Install NTP or Chrony for Time Management - Physical Machines only - Courtesy of MrV
  if [[ -f "/etc/debian_version" &&  ! -f "/proc/user_beancounters" ]]; then
    if pgrep -x "ntpd" > /dev/null
    then
