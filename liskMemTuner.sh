@@ -28,17 +28,7 @@ max_wal_size=2GB
 checkpoint_completion_target=0.7
 wal_buffers=16MB
 default_statistics_target=100
-cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
-sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
-sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
-sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
-sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#maxws#$max_wal_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#cct#$checkpoint_completion_target#g" ./pgsql/data/postgresql.conf
-sed -i "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
+update_config
 exit 0
 fi
 
@@ -53,17 +43,7 @@ max_wal_size=2GB
 checkpoint_completion_target=0.7
 wal_buffers=16MB
 default_statistics_target=100
-cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
-sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
-sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
-sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
-sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#maxws#$max_wal_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#cct#$checkpoint_completion_target#g" ./pgsql/data/postgresql.conf
-sed -i "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
+update_config
 exit 0
 fi
 
@@ -78,17 +58,7 @@ max_wal_size=2GB
 checkpoint_completion_target=0.7
 wal_buffers=16MB
 default_statistics_target=100
-cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
-sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
-sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
-sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
-sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#maxws#$max_wal_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#cct#$checkpoint_completion_target#g" ./pgsql/data/postgresql.conf
-sed -i "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
+update_config
 exit 0
 fi
 
@@ -103,17 +73,7 @@ max_wal_size=2GB
 checkpoint_completion_target=0.7
 wal_buffers=16MB
 default_statistics_target=100
-cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
-sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
-sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
-sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
-sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#maxws#$max_wal_size#g" ./pgsql/data/postgresql.conf
-sed -i "s#cct#$checkpoint_completion_target#g" ./pgsql/data/postgresql.conf
-sed -i "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
+update_config
 exit 0
 fi
 
@@ -128,6 +88,12 @@ max_wal_size=2GB
 checkpoint_completion_target=0.7
 wal_buffers=16MB
 default_statistics_target=100
+update_config
+exit 0
+fi
+
+update_config() {
+  
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
 sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
@@ -139,5 +105,5 @@ sed -i "s#maxws#$max_wal_size#g" ./pgsql/data/postgresql.conf
 sed -i "s#cct#$checkpoint_completion_target#g" ./pgsql/data/postgresql.conf
 sed -i "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
 sed -i "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
-exit 0
-fi
+echo "Updates completed"
+}
