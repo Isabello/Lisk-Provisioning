@@ -8,9 +8,10 @@
 #############################################################
 
 
-if -f ./pgsql/data/postgresql.conf.bak; then
+if [[ -f "./pgsql/data/postgresql.conf.bak" ]]; then
 cp ./pgsql/data/postgresql.conf.bak ./pgsql/data/postgresql.conf
 fi
+
 
 
 memoryBase=`cat /proc/meminfo | grep MemTotal | awk "{print $2 / 1024 /4}" | cut -f1 -d"."`
@@ -30,7 +31,7 @@ default_statistics_target=100
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
 sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#ecs#effective_cache_size#g" ./pgsql/data/postgresql.conf
+sed -i "s#ecs#$ffective_cache_size#g" ./pgsql/data/postgresql.conf
 sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
@@ -55,7 +56,7 @@ default_statistics_target=100
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
 sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#ecs#effective_cache_size#g" ./pgsql/data/postgresql.conf
+sed -i "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
 sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
@@ -80,7 +81,7 @@ default_statistics_target=100
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
 sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#ecs#effective_cache_size#g" ./pgsql/data/postgresql.conf
+sed -i "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
 sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
@@ -105,7 +106,7 @@ default_statistics_target=100
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
 sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#ecs#effective_cache_size#g" ./pgsql/data/postgresql.conf
+sed -i "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
 sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
@@ -130,7 +131,7 @@ default_statistics_target=100
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
 sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
-sed -i "s#ecs#effective_cache_size#g" ./pgsql/data/postgresql.conf
+sed -i "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
 sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
 sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
