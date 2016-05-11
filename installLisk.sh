@@ -35,7 +35,7 @@ fi
         sudo ntpdate pool.ntp.org
         sudo service ntp start
       else
-      echo "Lisk requires NTP on Debian based systems, exiting."
+      echo -e "\nLisk requires NTP on Debian based systems, exiting."
       exit 0
       fi
    fi
@@ -57,7 +57,7 @@ fi
       ntpdate pool.ntp.org
       /etc/init.d/ntpd start
       else
-      echo "Lisk requires NTP or Chrony on RHEL based systems, exiting."
+      echo -e "\nLisk requires NTP or Chrony on RHEL based systems, exiting."
       exit 0
         fi
       fi
