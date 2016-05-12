@@ -19,6 +19,17 @@ if [ "$USER" == "root" ]; then
   exit 1
 fi
 
+install_prereqs() {
+if [[ "$(uname)" == "Linux" ]]; then
+	sudo apt-get install curl tar unzip gunzip jq
+fi
+
+if [[ "$(uname)" == "FreeBSD" ]]; then
+	sudo pkg install curl tar unzip gunzip jq
+fi
+
+}
+  
 ntp_checks() {
 #Install NTP or Chrony for Time Management - Physical Machines only - Courtesy of MrV
 if [[ "$(uname)" == "Linux" ]]; then
@@ -179,6 +190,7 @@ upgrade_lisk() {
 case $1 in
 "install")
   ntp_checks
+  install_prereqs
   install_lisk
   ;;
   "upgrade")
