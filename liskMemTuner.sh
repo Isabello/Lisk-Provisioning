@@ -1,3 +1,4 @@
+
 #!/bin/bash
 #############################################################
 # Postgres Memory Tuning for Lisk                           #
@@ -9,7 +10,7 @@
 
 
 update_config() {
-  
+
 if [[ "$(uname)" == "Linux" ]]; then
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
@@ -24,7 +25,7 @@ sed -i "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
 sed -i "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
 echo "Updates completed"
 fi
-elif [[ "$(uname)" == "FreeBSD" ]]; then
+if [[ "$(uname)" == "FreeBSD" ]]; then
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -I .temp "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
 sed -I .temp "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
@@ -37,9 +38,22 @@ sed -I .temp "s#cct#$checkpoint_completion_target#g" ./pgsql/data/postgresql.con
 sed -I .temp "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
 sed -I .temp "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
 fi
-elif [[ "$(uname)" == "Darwin" ]]; then
 
+#### UNTESTED TO THIS POINT
+if [[ "$(uname)" == "Darwin" ]]; then
+cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
+sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
+sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
+sed -i "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
+sed -i "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
+sed -i "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
+sed -i "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
+sed -i "s#maxws#$max_wal_size#g" ./pgsql/data/postgresql.conf
+sed -i "s#cct#$checkpoint_completion_target#g" ./pgsql/data/postgresql.conf
+sed -i "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
+sed -i "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
 fi
+
 }
 
 
@@ -48,10 +62,20 @@ cp ./pgsql/data/postgresql.conf.bak ./pgsql/data/postgresql.conf
 fi
 
 
-
+if [[ "$(uname)" == "Linux" ]]; then
 memoryBase=`cat /proc/meminfo | grep MemTotal | awk '{print $2 / 1024 /4}' | cut -f1 -d"."`
 echo $memoryBase
+fi
 
+if [[ "$(uname)" == "FreeBSD" ]]; then
+memoryBase=`sysctl hw.physmem | awk '{print $2 / 1024 / 4}' |cut -f1 -d"."`
+echo $memoryBase
+fi
+
+if [[ "$(uname)" == "FreeBSD" ]]; then
+memoryBase=`sysctl hw.physmem | awk '{print $2 / 1024 / 4}' |cut -f1 -d"."`
+echo $memoryBase
+fi
 if [[ "$memoryBase" -lt "1024" ]]; then
 max_connections=200
 shared_buffers=1GB
