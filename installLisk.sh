@@ -20,6 +20,7 @@ if [ "$USER" == "root" ]; then
 fi
 
 #Install NTP or Chrony for Time Management - Physical Machines only - Courtesy of MrV
+if [[ "$(uname)" == "Linux" ]]; then
  if [[ -f "/etc/debian_version" &&  ! -f "/proc/user_beancounters" ]]; then
    if pgrep -x "ntpd" > /dev/null
    then
@@ -65,6 +66,23 @@ fi
  elif [[ -f "/proc/user_beancounters" ]]; then
    echo "_ Running OpenVZ VM, NTP and Chrony are not required"
  fi
+elif [[ "$(uname)" == "FreeBSD" ]]; then
+	if pgrep -x "ntpd" > /dev/null
+	   then
+		  echo "√ ntp is running"
+	   else
+		  echo "X ntp is not running"
+		  read -r -n 1 -p "Would like to install ntp? (y/n): " $REPLY
+		  if [[  $REPLY =~ ^[Yy]$ ]]
+		  then
+		  pkg_add -rv  ntp
+		#work in progress for ntp install on freebsd
+		  else
+		  echo -e "\nLisk requires NTP FreeBSD based systems, exiting."
+		  exit 0
+	    fi
+    fi
+fi
 
 
 
@@ -88,5 +106,4 @@ cp ~/test/liskMemTuner.sh $defaultLiskLocation/$liskDir
 bash $defaultLiskLocation/$liskDir/liskMemTuner.sh
 
 bash lisk.sh start
-
 
