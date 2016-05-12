@@ -62,17 +62,18 @@ if [[ "$(uname)" == "Linux" ]]; then
         read -r -n 1 -p "Would like to install NTP? (y/n): " $REPLY
         if [[  $REPLY =~ ^[Yy]$ ]]
         then
-      sudo yum install ntp ntpdate ntp-doc
-      sudo chkconfig ntpd on
-      sudo ntpdate pool.ntp.org
-      sudo  /etc/init.d/ntpd start
+        	echo -e "\nInstalling NTP, please provide sudo password.\n"
+      		sudo yum install ntp ntpdate ntp-doc
+		sudo chkconfig ntpd on
+		sudo ntpdate pool.ntp.org
+		sudo  /etc/init.d/ntpd start
 		if pgrep -x "ntpd" > /dev/null
-				then
-					echo "√ NTP is running"
-				else
-					echo -e "\nLisk requires NTP running on Debian based systems. Please check /etc/ntp.conf and correct any issues."
-					exit 0
-			fi
+			then
+				echo "√ NTP is running"
+			else
+				echo -e "\nLisk requires NTP running on Debian based systems. Please check /etc/ntp.conf and correct any issues."
+				exit 0
+		fi
       else
       echo -e "\nLisk requires NTP or Chrony on RHEL based systems, exiting."
       exit 0
@@ -86,14 +87,23 @@ if [[ "$(uname)" == "Linux" ]]; then
 elif [[ "$(uname)" == "FreeBSD" ]]; then
 	if pgrep -x "ntpd" > /dev/null
 	   then
-		  echo "√ ntp is running"
+		  echo "√ NTP is running"
 	   else
-		  echo "X ntp is not running"
-		  read -r -n 1 -p "Would like to install ntp? (y/n): " $REPLY
+		  echo "X NTP is not running"
+		  read -r -n 1 -p "Would like to install NTP? (y/n): " $REPLY
 		  if [[  $REPLY =~ ^[Yy]$ ]]
 		  then
+		  echo -e "\nInstalling NTP, please provide sudo password.\n"
 		  sudo pkg install ntp
-		#work in progress for ntp install on freebsd
+		  sudo sh -c "echo 'ntpd_enable=\"YES\"' >> /etc/rc.conf"
+		  sudo service ntpd start
+			if pgrep -x "ntpd" > /dev/null
+				then
+					echo "√ NTP is running"
+				else
+					echo -e "\nLisk requires NTP running on FreeBSD based systems. Please check /etc/ntp.conf and correct any issues."
+					exit 0
+			fi
 		  else
 		  echo -e "\nLisk requires NTP FreeBSD based systems, exiting."
 		  exit 0
