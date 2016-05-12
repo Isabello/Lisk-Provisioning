@@ -167,6 +167,9 @@ bash lisk.sh start
 
 }
 
+upgrade_lisk() {
+	echo "Not supported yet"
+}
 
 case $1 in
 "install")
