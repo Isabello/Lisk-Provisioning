@@ -24,6 +24,7 @@ if [[ -f "/etc/redhat-release" ]]; then
 fi
 
 if [[ -f "/etc/debian_version" ]]; then
+	sudo apt-get update
 	sudo yum install curl tar gunzip wget
 fi
 if [[ "$(uname)" == "FreeBSD" ]]; then
@@ -45,7 +46,6 @@ if [[ "$(uname)" == "Linux" ]]; then
 	  if [[  $REPLY =~ ^[Yy]$ ]]
 		then
 		echo -e "\nInstalling NTP, please provide sudo password.\n"
-        sudo apt-get update
         sudo apt-get install ntp -yyq
         sudo service ntp stop
         sudo ntpdate pool.ntp.org
@@ -150,7 +150,7 @@ liskDir=`echo $liskVersion | cut -d'.' -f1`
 
 echo -e "\nDownloading current Lisk binaries: "$liskVersion
 
-wget -q  https://downloads.lisk.io/lisk/test/$liskVersion
+wget -q --no-check-certificate https://downloads.lisk.io/lisk/test/$liskVersion
 
 echo -e "Extracting Lisk binaries to "$defaultLiskLocation/lisk
 
