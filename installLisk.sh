@@ -19,6 +19,7 @@ if [ "$USER" == "root" ]; then
   exit 1
 fi
 
+ntp_checks(){
 #Install NTP or Chrony for Time Management - Physical Machines only - Courtesy of MrV
 if [[ "$(uname)" == "Linux" ]]; then
  if [[ -f "/etc/debian_version" &&  ! -f "/proc/user_beancounters" ]]; then
@@ -114,9 +115,10 @@ elif [[ "$(uname)" == "Darwin" ]]; then
 			fi
 	fi	#End Darwin Checks
 fi #End NTP Checks
+}
 
-
-
+install_lisk() {
+	
 liskVersion=`curl -s https://downloads.lisk.io/lisk/test/ | grep $UNAME | cut -d'"' -f2`
 liskDir=`echo $liskVersion | cut -d'.' -f1`
 
@@ -128,12 +130,12 @@ echo -e "Extracting Lisk binaries to "$defaultLiskLocation/$liskDir
 
 tar -xzf $liskVersion -C $defaultLiskLocation 
 
+mv $liskDir $defaultLiskLocation/lisk
+
 echo -e "\nCleaning up downloaded files"
 rm -f $liskVersion
 
-
-
-cd $defaultLiskLocation/$liskDir
+cd $defaultLiskLocation/lisk
 
 echo -e "\nColdstarting Lisk for the first time"
 bash lisk.sh coldstart
@@ -150,4 +152,26 @@ bash $defaultLiskLocation/$liskDir/liskMemTuner.sh
 
 echo -e "\nStarting Lisk with all parameters in place."
 bash lisk.sh start
+
+}
+
+upgrade_lisk() {
+	
+}
+
+case $1 in
+"install")
+  ntp_checks
+  install_lisk
+  ;;
+  "upgrade")
+  upgrade_lisk
+  ;;
+*)
+  echo "Error: Unrecognized command."
+  echo ""
+  echo "Available commands are: install upgrade"
+  ;;
+esac
+
 
