@@ -145,7 +145,8 @@ bash lisk.sh stop
 
 
 wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/liskMemTuner.sh
-wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf --directory-prefix=$defaultLiskLocation/lisk/pgsql/data -O postgresql.conf
+rm -f $defaultLiskLocation/lisk/pgsql/data/postgresql.conf
+wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf --directory-prefix=$defaultLiskLocation/lisk/pgsql/data 
 
 echo -e "\nExecuting database tuning operation"
 bash $defaultLiskLocation/lisk/liskMemTuner.sh
