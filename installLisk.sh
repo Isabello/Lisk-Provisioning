@@ -170,12 +170,12 @@ echo -e "\nStopping Lisk to perform database tuning"
 bash lisk.sh stop
 
 
-curl -s  https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/liskMemTuner.sh -o liskMemTuner.sh
+curl -s  https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/tune.sh -o tune.sh
 rm -f $defaultLiskLocation/lisk/pgsql/data/postgresql.conf
 curl -s https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf -o $defaultLiskLocation/lisk/pgsql/data/postgresql.conf
 
 echo -e "\nExecuting database tuning operation"
-bash $defaultLiskLocation/lisk/liskMemTuner.sh
+bash $defaultLiskLocation/lisk/tune.sh
 
 echo -e "\nStarting Lisk with all parameters in place."
 bash lisk.sh start
