@@ -118,23 +118,36 @@ fi #End NTP Checks
 
 
 liskVersion=`curl -s https://downloads.lisk.io/lisk/test/ | grep $UNAME | cut -d'"' -f2`
-wget https://downloads.lisk.io/lisk/test/$liskVersion
+liskDir=`echo $liskVersion | cut -d'.' -f1`
 
-tar -xvf $liskVersion -C $defaultLiskLocation
+echo -e "\nDownloading current Lisk binaries: "$liskVersion
 
+wget -q  https://downloads.lisk.io/lisk/test/$liskVersion
+
+echo -e "Extracting Lisk binaries to "$defaultLiskLocation/$liskDir
+
+tar -xf $liskVersion -C $defaultLiskLocation 
+
+echo -e "\nCleaning up downloaded files"
 rm -f $liskVersion
 
-liskDir=`echo $liskVersion | cut -d'.' -f1`
+
 
 cd $defaultLiskLocation/$liskDir
 
+echo -e "\nColdstarting Lisk for the first time"
 bash lisk.sh coldstart
+
+echo -e "\nStopping Lisk to perform database tuning"
 bash lisk.sh stop
 
-cp ~/test/postgresql.conf $defaultLiskLocation/$liskDir/pgsql/data
-cp ~/test/liskMemTuner.sh $defaultLiskLocation/$liskDir
 
+wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/liskMemTuner.sh
+wget -q --directory-prefix=$defaultLiskLocation/$liskDir/pgsql/data -O https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf 
+
+echo -e "\nExecuting database tuning operation"
 bash $defaultLiskLocation/$liskDir/liskMemTuner.sh
 
+echo -e "\nStarting Lisk with all parameters in place."
 bash lisk.sh start
 
