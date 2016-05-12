@@ -20,15 +20,15 @@ fi
 
 install_prereqs() {
 if [[ -f "/etc/redhat-release" ]]; then
-	sudo yum install curl tar gunzip wget
+	sudo yum install curl tar gzip 
 fi
 
 if [[ -f "/etc/debian_version" ]]; then
 	sudo apt-get update
-	sudo yum install curl tar gunzip wget
+	sudo yum install curl tar gzip 
 fi
 if [[ "$(uname)" == "FreeBSD" ]]; then
-	sudo pkg install curl tar gunzip wget
+	sudo pkg install curl tar gzip 
 fi
 
 }
@@ -150,7 +150,7 @@ liskDir=`echo $liskVersion | cut -d'.' -f1`
 
 echo -e "\nDownloading current Lisk binaries: "$liskVersion
 
-wget -q --no-check-certificate https://downloads.lisk.io/lisk/test/$liskVersion
+curl -s https://downloads.lisk.io/lisk/test/$liskVersion -o $liskVersion
 
 echo -e "Extracting Lisk binaries to "$defaultLiskLocation/lisk
 
@@ -170,9 +170,9 @@ echo -e "\nStopping Lisk to perform database tuning"
 bash lisk.sh stop
 
 
-wget -q --no-check-certificate https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/liskMemTuner.sh
+curl -s  https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/liskMemTuner.sh -o liskMemTuner.sh
 rm -f $defaultLiskLocation/lisk/pgsql/data/postgresql.conf
-wget -q --no-check-certificate https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf --directory-prefix=$defaultLiskLocation/lisk/pgsql/data 
+curl -s https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf -o $defaultLiskLocation/lisk/pgsql/data/postgresql.conf
 
 echo -e "\nExecuting database tuning operation"
 bash $defaultLiskLocation/lisk/liskMemTuner.sh
