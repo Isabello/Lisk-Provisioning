@@ -20,10 +20,13 @@ if [ "$USER" == "root" ]; then
 fi
 
 install_prereqs() {
-if [[ "$(uname)" == "Linux" ]]; then
-	sudo apt-get install curl tar unzip gunzip jq
+if [[ -f "/etc/redhat-release" ]]; then
+	sudo yum install curl tar unzip gunzip jq
 fi
 
+if [[ -f -f "/etc/debian_version" ]]; then
+	sudo yum install curl tar unzip gunzip jq
+fi
 if [[ "$(uname)" == "FreeBSD" ]]; then
 	sudo pkg install curl tar unzip gunzip jq
 fi
