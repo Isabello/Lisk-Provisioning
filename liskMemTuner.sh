@@ -10,6 +10,7 @@
 
 update_config() {
   
+if [[ "$(uname)" == "Linux" ]]; then
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
 sed -i "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
@@ -22,6 +23,11 @@ sed -i "s#cct#$checkpoint_completion_target#g" ./pgsql/data/postgresql.conf
 sed -i "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
 sed -i "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
 echo "Updates completed"
+elif [[ "$(uname)" == "FreeBSD" ]]; then
+
+elif [[ "$(uname)" == "Darwin" ]]; then
+
+fi
 }
 
 
