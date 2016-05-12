@@ -19,7 +19,7 @@ if [ "$USER" == "root" ]; then
   exit 1
 fi
 
-ntp_checks(){
+ntp_checks() {
 #Install NTP or Chrony for Time Management - Physical Machines only - Courtesy of MrV
 if [[ "$(uname)" == "Linux" ]]; then
  if [[ -f "/etc/debian_version" &&  ! -f "/proc/user_beancounters" ]]; then
@@ -145,19 +145,16 @@ bash lisk.sh stop
 
 
 wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/liskMemTuner.sh
-wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf --directory-prefix=$defaultLiskLocation/$liskDir/pgsql/data
+wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf --directory-prefix=$defaultLiskLocation/lisk/pgsql/data -O postgresql.conf
 
 echo -e "\nExecuting database tuning operation"
-bash $defaultLiskLocation/$liskDir/liskMemTuner.sh
+bash $defaultLiskLocation/lisk/liskMemTuner.sh
 
 echo -e "\nStarting Lisk with all parameters in place."
 bash lisk.sh start
 
 }
 
-upgrade_lisk() {
-	
-}
 
 case $1 in
 "install")
