@@ -82,6 +82,21 @@ elif [[ "$(uname)" == "FreeBSD" ]]; then
 		  exit 0
 	    fi
     fi
+elif [[ "$(uname)" == "Darwin" ]]; then
+	if pgrep -x "ntpd" > /dev/null
+	   then
+	   	echo "√ NTP is running"
+	   else
+		sudo launchctl load /System/Library/LaunchDaemons/org.ntp.ntpd.plist
+		sleep 1
+		if pgrep -x "ntpd" > /dev/null
+		then
+			echo "√ NTP is running"
+		else
+			echo -e "\nNTP did not start, Please verify its configured on your system"
+			exit 0
+		fi
+	fi	
 fi
 
 
