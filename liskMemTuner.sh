@@ -24,7 +24,17 @@ sed -i "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
 sed -i "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
 echo "Updates completed"
 elif [[ "$(uname)" == "FreeBSD" ]]; then
-
+cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
+sed -I .temp "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
+sed -I .temp "s#sb#$shared_buffers#g" ./pgsql/data/postgresql.conf
+sed -I .temp "s#ecs#$effective_cache_size#g" ./pgsql/data/postgresql.conf
+sed -I .temp "s#wmem#$work_mem#g" ./pgsql/data/postgresql.conf
+sed -I .temp "s#mwm#$maintenance_work_mem#g" ./pgsql/data/postgresql.conf
+sed -I .temp "s#minws#$min_wal_size#g" ./pgsql/data/postgresql.conf
+sed -I .temp "s#maxws#$max_wal_size#g" ./pgsql/data/postgresql.conf
+sed -I .temp "s#cct#$checkpoint_completion_target#g" ./pgsql/data/postgresql.conf
+sed -I .temp "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
+sed -I .temp "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
 elif [[ "$(uname)" == "Darwin" ]]; then
 
 fi
