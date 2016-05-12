@@ -19,8 +19,8 @@ if [ "$USER" == "root" ]; then
 fi
 
 user_prompts() {
-read -r -p "Where do you have lisk installed to? (Default $defaultLiskLocation):  " liskLocation
-liskLocation=${liskLocation:-$default_lisk_location}
+read -r -p "Where do you want to install Lisk to? (Default $defaultLiskLocation):  " liskLocation
+liskLocation=${liskLocation:-$defaultLiskLocation}
 if [[ ! -r "$liskLocation" ]]
 then
 echo "$liskLocation is not valid, please check and re-excute"
