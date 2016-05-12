@@ -10,7 +10,6 @@
 
 #Variable Declaration
 UNAME=$(uname)-$(uname -m)
-echo $UNAME
 defaultLiskLocation=~
 
 #Verification Checks
@@ -24,7 +23,7 @@ if [[ -f "/etc/redhat-release" ]]; then
 	sudo yum install curl tar unzip gunzip jq
 fi
 
-if [[ -f -f "/etc/debian_version" ]]; then
+if [[ -f "/etc/debian_version" ]]; then
 	sudo yum install curl tar unzip gunzip jq
 fi
 if [[ "$(uname)" == "FreeBSD" ]]; then
