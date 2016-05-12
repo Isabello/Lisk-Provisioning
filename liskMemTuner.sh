@@ -39,7 +39,7 @@ sed -I .temp "s#wb#$wal_buffers#g" ./pgsql/data/postgresql.conf
 sed -I .temp "s#dst#$default_statistics_target#g" ./pgsql/data/postgresql.conf
 fi
 
-#### UNTESTED TO THIS POINT
+#### UNTESTED 
 if [[ "$(uname)" == "Darwin" ]]; then
 cp ./pgsql/data/postgresql.conf ./pgsql/data/postgresql.conf.bak
 sed -i "s#mc#$max_connections#g" ./pgsql/data/postgresql.conf
@@ -72,10 +72,12 @@ memoryBase=`sysctl hw.physmem | awk '{print $2 / 1024 / 4}' |cut -f1 -d"."`
 echo $memoryBase
 fi
 
-if [[ "$(uname)" == "FreeBSD" ]]; then
-memoryBase=`sysctl hw.physmem | awk '{print $2 / 1024 / 4}' |cut -f1 -d"."`
+### UNTESTED
+if [[ "$(uname)" == "Darwin" ]]; then
+memoryBase=`top -l 1 | grep PhysMem: | awk '{print $10  / 1024 / 4 }' |cut -f1 -d"."`
 echo $memoryBase
 fi
+
 if [[ "$memoryBase" -lt "1024" ]]; then
 max_connections=200
 shared_buffers=1GB
