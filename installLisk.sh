@@ -30,12 +30,12 @@ fi
 
 install_prereqs() {
 if [[ -f "/etc/redhat-release" ]]; then
-	sudo yum install curl tar gzip 
+	sudo yum -yq install curl tar gzip 
 fi
 
 if [[ -f "/etc/debian_version" ]]; then
 	sudo apt-get update
-	sudo yum install curl tar gzip 
+	sudo apt-get install -yyq curl tar gzip 
 fi
 if [[ "$(uname)" == "FreeBSD" ]]; then
 	sudo pkg install curl tar gzip 
@@ -87,7 +87,7 @@ if [[ "$(uname)" == "Linux" ]]; then
         if [[  $REPLY =~ ^[Yy]$ ]]
         then
         	echo -e "\nInstalling NTP, please provide sudo password.\n"
-      		sudo yum install ntp ntpdate ntp-doc
+      		sudo yum -yq install ntp ntpdate ntp-doc
 		sudo chkconfig ntpd on
 		sudo service ntpd stop
 		sudo ntpdate pool.ntp.org
