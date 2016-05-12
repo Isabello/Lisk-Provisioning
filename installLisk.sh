@@ -137,7 +137,7 @@ echo -e "\nDownloading current Lisk binaries: "$liskVersion
 
 wget -q  https://downloads.lisk.io/lisk/test/$liskVersion
 
-echo -e "Extracting Lisk binaries to "$defaultLiskLocation/$liskDir
+echo -e "Extracting Lisk binaries to "$defaultLiskLocation/lisk
 
 tar -xzf $liskVersion -C $defaultLiskLocation 
 
