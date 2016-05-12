@@ -66,8 +66,9 @@ if [[ "$(uname)" == "Linux" ]]; then
         	echo -e "\nInstalling NTP, please provide sudo password.\n"
       		sudo yum install ntp ntpdate ntp-doc
 		sudo chkconfig ntpd on
+		sudo service ntpd stop
 		sudo ntpdate pool.ntp.org
-		sudo  /etc/init.d/ntpd start
+		sudo service ntpd start
 		if pgrep -x "ntpd" > /dev/null
 			then
 				echo "√ NTP is running"
