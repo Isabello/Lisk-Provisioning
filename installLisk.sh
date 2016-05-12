@@ -126,7 +126,7 @@ wget -q  https://downloads.lisk.io/lisk/test/$liskVersion
 
 echo -e "Extracting Lisk binaries to "$defaultLiskLocation/$liskDir
 
-tar -xf $liskVersion -C $defaultLiskLocation 
+tar -xzf $liskVersion -C $defaultLiskLocation 
 
 echo -e "\nCleaning up downloaded files"
 rm -f $liskVersion
@@ -143,7 +143,7 @@ bash lisk.sh stop
 
 
 wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/liskMemTuner.sh
-wget -q --directory-prefix=$defaultLiskLocation/$liskDir/pgsql/data -O https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf 
+wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf --directory-prefix=$defaultLiskLocation/$liskDir/pgsql/data
 
 echo -e "\nExecuting database tuning operation"
 bash $defaultLiskLocation/$liskDir/liskMemTuner.sh
