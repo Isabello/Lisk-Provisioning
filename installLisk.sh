@@ -20,14 +20,14 @@ fi
 
 install_prereqs() {
 if [[ -f "/etc/redhat-release" ]]; then
-	sudo yum install curl tar unzip gunzip jq
+	sudo yum install curl tar gunzip wget
 fi
 
 if [[ -f "/etc/debian_version" ]]; then
-	sudo yum install curl tar unzip gunzip jq
+	sudo yum install curl tar gunzip wget
 fi
 if [[ "$(uname)" == "FreeBSD" ]]; then
-	sudo pkg install curl tar unzip gunzip jq
+	sudo pkg install curl tar gunzip wget
 fi
 
 }
