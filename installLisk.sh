@@ -18,6 +18,16 @@ if [ "$USER" == "root" ]; then
   exit 1
 fi
 
+user_prompts() {
+read -r -p "Where do you have lisk installed to? (Default $defaultLiskLocation):  " liskLocation
+liskLocation=${liskLocation:-$default_lisk_location}
+if [[ ! -r "$liskLocation" ]]
+then
+echo "$liskLocation is not valid, please check and re-excute"
+exit 2;
+fi
+}
+
 install_prereqs() {
 if [[ -f "/etc/redhat-release" ]]; then
 	sudo yum install curl tar gzip 
@@ -152,16 +162,16 @@ echo -e "\nDownloading current Lisk binaries: "$liskVersion
 
 curl -s https://downloads.lisk.io/lisk/test/$liskVersion -o $liskVersion
 
-echo -e "Extracting Lisk binaries to "$defaultLiskLocation/lisk
+echo -e "Extracting Lisk binaries to "$liskLocation/lisk
 
-tar -xzf $liskVersion -C $defaultLiskLocation 
+tar -xzf $liskVersion -C $liskLocation 
 
-mv $liskDir $defaultLiskLocation/lisk
+mv $liskDir $liskLocation/lisk
 
 echo -e "\nCleaning up downloaded files"
 rm -f $liskVersion
 
-cd $defaultLiskLocation/lisk
+cd $liskLocation/lisk
 
 echo -e "\nColdstarting Lisk for the first time"
 bash lisk.sh coldstart
@@ -171,11 +181,11 @@ bash lisk.sh stop
 
 
 curl -s  https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/tune.sh -o tune.sh
-rm -f $defaultLiskLocation/lisk/pgsql/data/postgresql.conf
-curl -s https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf -o $defaultLiskLocation/lisk/pgsql/data/postgresql.conf
+rm -f $liskLocation/lisk/pgsql/data/postgresql.conf
+curl -s https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf -o $liskLocation/lisk/pgsql/data/postgresql.conf
 
 echo -e "\nExecuting database tuning operation"
-bash $defaultLiskLocation/lisk/tune.sh
+bash $liskLocation/lisk/tune.sh
 
 echo -e "\nStarting Lisk with all parameters in place."
 bash lisk.sh start
@@ -192,6 +202,7 @@ upgrade_lisk() {
 
 case $1 in
 "install")
+  user_prompts
   ntp_checks
   install_prereqs
   install_lisk
