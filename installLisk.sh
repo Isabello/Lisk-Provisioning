@@ -96,6 +96,7 @@ elif [[ "$(uname)" == "FreeBSD" ]]; then
 		  echo -e "\nInstalling NTP, please provide sudo password.\n"
 		  sudo pkg install ntp
 		  sudo sh -c "echo 'ntpd_enable=\"YES\"' >> /etc/rc.conf"
+		  sudo ntpdate -u pool.ntp.org
 		  sudo service ntpd start
 			if pgrep -x "ntpd" > /dev/null
 				then
