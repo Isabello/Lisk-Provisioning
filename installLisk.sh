@@ -168,6 +168,7 @@ echo -e "\nStarting Lisk with all parameters in place."
 bash lisk.sh start
 
 blockHeight=`curl -s http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`
+sleep 2
 echo -e "\nCurrent Block Height: " $blockHeight
 }
 
