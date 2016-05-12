@@ -170,9 +170,9 @@ echo -e "\nStopping Lisk to perform database tuning"
 bash lisk.sh stop
 
 
-wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/liskMemTuner.sh
+wget -q --no-check-certificate https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/liskMemTuner.sh
 rm -f $defaultLiskLocation/lisk/pgsql/data/postgresql.conf
-wget -q https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf --directory-prefix=$defaultLiskLocation/lisk/pgsql/data 
+wget -q --no-check-certificate https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf --directory-prefix=$defaultLiskLocation/lisk/pgsql/data 
 
 echo -e "\nExecuting database tuning operation"
 bash $defaultLiskLocation/lisk/liskMemTuner.sh
@@ -180,8 +180,9 @@ bash $defaultLiskLocation/lisk/liskMemTuner.sh
 echo -e "\nStarting Lisk with all parameters in place."
 bash lisk.sh start
 
+sleep 5
 blockHeight=`curl -s http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`
-sleep 2
+
 echo -e "\nCurrent Block Height: " $blockHeight
 }
 
