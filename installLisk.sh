@@ -91,7 +91,7 @@ elif [[ "$(uname)" == "FreeBSD" ]]; then
 		  read -r -n 1 -p "Would like to install ntp? (y/n): " $REPLY
 		  if [[  $REPLY =~ ^[Yy]$ ]]
 		  then
-		  pkg_add -rv  ntp
+		  sudo pkg install ntp
 		#work in progress for ntp install on freebsd
 		  else
 		  echo -e "\nLisk requires NTP FreeBSD based systems, exiting."
