@@ -31,6 +31,7 @@ if [[ "$(uname)" == "Linux" ]]; then
       read -r -n 1 -p "Would like to install NTP? (y/n): " $REPLY
 	  if [[  $REPLY =~ ^[Yy]$ ]]
 		then
+		echo -e "\nInstalling NTP, please provide sudo password.\n"
         sudo apt-get update
         sudo apt-get install ntp -yyq
         sudo service ntp stop
@@ -165,6 +166,8 @@ bash $defaultLiskLocation/lisk/liskMemTuner.sh
 echo -e "\nStarting Lisk with all parameters in place."
 bash lisk.sh start
 
+blockHeight=`curl -s http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`
+echo -e "\nCurrent Block Height: " $blockHeight
 }
 
 upgrade_lisk() {
