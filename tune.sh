@@ -58,7 +58,7 @@ fi
 
 
 if [[ -f "./pgsql/data/postgresql.conf.bak" ]]; then
-cp ./pgsql/data/postgresql.conf.bak ./pgsql/data/postgresql.conf
+cp -f ./pgsql/data/postgresql.conf.bak ./pgsql/data/postgresql.conf
 fi
 
 
@@ -74,7 +74,7 @@ fi
 
 ### UNTESTED
 if [[ "$(uname)" == "Darwin" ]]; then
-memoryBase=`top -l 1 | grep PhysMem: | awk '{print $10  / 1024  / 4 }' |cut -f1 -d"."`
+memoryBase=`top -l 1 | grep PhysMem: | awk '{print $10  / 1024  / 1024 /  4 }' |cut -f1 -d"."`
 echo $memoryBase
 fi
 
