@@ -172,6 +172,7 @@ curl -s https://downloads.lisk.io/lisk/test/$liskVersion -o $liskVersion
 #echo "Checksum Passed!"
 #else
 #echo "Checksum Failed, aborting installation"
+#rm -f $liskVersion lisk_checksum.md5
 #exit 0
 #fi
 
