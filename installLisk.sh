@@ -1,7 +1,7 @@
 #!/bin/bash
 ####################################################
 #Lisk Installation Script
-#
+# by Isabella D.
 #
 #
 #
