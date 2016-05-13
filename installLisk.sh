@@ -180,7 +180,6 @@ echo -e "\nStopping Lisk to perform database tuning"
 bash lisk.sh stop
 
 
-curl -s  https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/tune.sh -o tune.sh
 rm -f $liskLocation/lisk/pgsql/data/postgresql.conf
 curl -s https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf -o $liskLocation/lisk/pgsql/data/postgresql.conf
 
