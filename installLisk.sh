@@ -181,7 +181,7 @@ bash lisk.sh stop
 
 
 rm -f $liskLocation/lisk/pgsql/data/postgresql.conf
-curl -s https://raw.githubusercontent.com/Isabello/Lisk-Provisioning/master/postgresql.conf -o $liskLocation/lisk/pgsql/data/postgresql.conf
+cp ./postgresql.conf $liskLocation/lisk/pgsql/data/postgresql.conf
 
 echo -e "\nExecuting database tuning operation"
 bash $liskLocation/lisk/tune.sh
