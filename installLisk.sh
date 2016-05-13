@@ -44,7 +44,7 @@ fi
 }
   
 ntp_checks() {
-#Install NTP or Chrony for Time Management - Physical Machines only - Courtesy of MrV
+#Install NTP or Chrony for Time Management - Physical Machines only
 if [[ "$(uname)" == "Linux" ]]; then
  if [[ -f "/etc/debian_version" &&  ! -f "/proc/user_beancounters" ]]; then
    if pgrep -x "ntpd" > /dev/null
