@@ -30,15 +30,15 @@ fi
 
 install_prereqs() {
 if [[ -f "/etc/redhat-release" ]]; then
-	sudo yum -yq install curl tar gzip 
+	sudo yum -yq install curl tar 
 fi
 
 if [[ -f "/etc/debian_version" ]]; then
 	sudo apt-get update
-	sudo apt-get install -yyq curl tar gzip 
+	sudo apt-get install -yyq curl tar 
 fi
 if [[ "$(uname)" == "FreeBSD" ]]; then
-	sudo pkg install curl tar gzip 
+	sudo pkg install curl tar 
 fi
 
 }
